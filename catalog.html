@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каталог продукции — Пром-Тех</title>
+    <style>
+        html {
+            scrollbar-gutter: stable;
+        }
+
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1a;
+            font-family: Arial, sans-serif;
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        /* ШАПКА */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 60px;
+            background: rgba(0, 0, 0, 0.9);
+            border-bottom: 3px solid #cc0000;
+            z-index: 1000;
+            position: fixed;
+            width: 100%;
+            box-sizing: border-box;
+            top: 0;
+            left: 0;
+        }
+
+        .logo-static {
+            font-size: 26px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Arial Black', sans-serif;
+            line-height: normal;
+            cursor: default;
+            user-select: none;
+            pointer-events: none;
+        }
+
+        .logo-static .part-red {
+            color: #cc0000;
+        }
+
+        .logo-static .part-white {
+            color: #ffffff;
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 35px;
+            font-size: 13px;
+            text-transform: uppercase;
+            font-family: Arial, sans-serif;
+            letter-spacing: 1.5px;
+            font-weight: bold;
+            transition: 0.3s;
+            line-height: normal;
+        }
+
+        nav a:hover {
+            color: #cc0000;
+        }
+
+        /* КОНТЕНТ */
+        .catalog-container {
+            padding-top: 180px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-left: 60px;
+            padding-right: 60px;
+            padding-bottom: 100px;
+            box-sizing: border-box;
+        }
+
+        .page-title {
+            font-family: 'Arial Black', sans-serif;
+            font-size: 42px;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+            border-left: 8px solid #cc0000;
+            padding-left: 25px;
+        }
+
+        /* СЕТКА ТОВАРОВ */
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .catalog-card {
+            background: #222;
+            border: 1px solid #333;
+            display: flex;
+            flex-direction: column;
+            transition: 0.3s;
+        }
+
+        .catalog-card:hover {
+            border-color: #cc0000;
+            transform: translateY(-5px);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+            background-color: #2a2a2a;
+        }
+
+        .card-info {
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .card-info h3 {
+            margin: 0 0 15px 0;
+            font-size: 20px;
+            text-transform: uppercase;
+            font-family: 'Arial Black', sans-serif;
+            line-height: 1.2;
+        }
+
+        .card-info p {
+            margin: 0 0 25px 0;
+            color: #aaa;
+            font-size: 14px;
+            flex-grow: 1;
+        }
+
+        .card-btn {
+            display: inline-block;
+            background: #cc0000;
+            color: #fff;
+            text-decoration: none;
+            text-align: center;
+            padding: 12px 20px;
+            font-size: 13px;
+            text-transform: uppercase;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .card-btn:hover {
+            background: #b30000;
+        }
+
+        /* АДАПТИВНЫЕ МЕДИА-ЗАПРОСЫ */
+        @media (max-width: 992px) {
+            header {
+                padding: 15px 25px;
+            }
+
+            .logo-static {
+                font-size: 22px;
+            }
+
+            .nav-container {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
+                background: rgba(0, 0, 0, 0.95);
+                border-left: 3px solid #cc0000;
+                box-sizing: border-box;
+                transition: 0.4s ease;
+                z-index: 999;
+                padding-top: 100px;
+                align-items: flex-start;
+            }
+
+            .nav-container.active {
+                right: 0;
+            }
+
+            nav {
+                flex-direction: column;
+                align-items: flex-start;
+                width: 100%;
+            }
+
+            nav a {
+                margin: 0;
+                padding: 20px 30px;
+                font-size: 16px;
+                display: block;
+                width: 100%;
+                box-sizing: border-box;
+                border-bottom: 1px solid #222;
+            }
+
+            .burger-menu {
+                display: block !important;
+                cursor: pointer;
+                z-index: 1000;
+            }
+
+            .burger-line {
+                width: 30px;
+                height: 3px;
+                background-color: #fff;
+                margin: 6px 0;
+                transition: 0.3s;
+            }
+
+            .burger-menu.active .line1 {
+                transform: rotate(-45deg) translate(-6px, 6px);
+            }
+
+            .burger-menu.active .line2 {
+                opacity: 0;
+            }
+
+            .burger-menu.active .line3 {
+                transform: rotate(45deg) translate(-6px, -6px);
+            }
+
+            .catalog-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .catalog-container {
+                padding: 120px 20px 50px;
+            }
+
+            .page-title {
+                font-size: 32px;
+                margin-bottom: 25px;
+            }
+
+            .catalog-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .card-image {
+                height: 200px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            header {
+                padding: 15px 20px;
+            }
+
+            .logo-static {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo-static">
+            <span class="part-red">Пром</span><span class="part-white">Тех</span>
+        </div>
+        <div class="nav-container" id="navContainer">
+            <nav>
+                <a href="index.html">Главная</a>
+                <a href="catalog.html" style="color: #cc0000;">Каталог</a>
+                <a href="about.html">О компании</a>
+                <a href="doc.html">Документы</a>
+                <a href="works.html">Наши работы</a>
+                <a href="contacts.html">Контакты</a>
+            </nav>
+        </div>
+        <div class="burger-menu" style="display: none;" onclick="toggleMenu(this)">
+            <div class="burger-line line1"></div>
+            <div class="burger-line line2"></div>
+            <div class="burger-line line3"></div>
+        </div>
+    </header>
+
+    <div class="catalog-container">
+        <h1 class="page-title">Каталог продукции</h1>
+
+        <div class="catalog-grid">
+            <div class="catalog-card">
+                <div class="card-image" style="background-image: url('images/kran-most.jpg');"></div>
+                <div class="card-info">
+                    <h3>Мостовые краны</h3>
+                    <p>Однобалочные и двухбалочные мостовые краны повышенной надежности для работы в цехах и на закрытых
+                        складах.</p>
+                    <a href="works.html#most" class="card-btn">Наши работы</a>
+                </div>
+            </div>
+
+            <div class="catalog-card">
+                <div class="card-image" style="background-image: url('images/kran-kozl.jpg');"></div>
+                <div class="card-info">
+                    <h3>Козловые краны</h3>
+                    <p>Промышленные козловые краны различной грузоподъемности для открытых площадок и погрузочных
+                        терминалов.</p>
+                    <a href="works.html#kozlov" class="card-btn">Наши работы</a>
+                </div>
+            </div>
+
+            <div class="catalog-card">
+                <div class="card-image" style="background-image: url('images/kran-konsol.jpg');"></div>
+                <div class="card-info">
+                    <h3>Консольные краны</h3>
+                    <p>Настенные и полноповоротные консольные краны на колонне для локального обслуживания рабочих зон.
+                    </p>
+                    <a href="works.html#konsol" class="card-btn">Наши работы</a>
+                </div>
+            </div>
+
+            <div class="catalog-card">
+                <div class="card-image" style="background-image: url('images/telega.jpg');"></div>
+                <div class="card-info">
+                    <h3>Передаточные телеги</h3>
+                    <p>Рельсовые и колесные передаточные телеги повышенной прочности для межцеховой транспортировки
+                        тяжелых грузов.</p>
+                    <a href="works.html#telega" class="card-btn">Наши работы</a>
+                </div>
+            </div>
+
+            <div class="catalog-card">
+                <div class="card-image" style="background-image: url('images/montazh_kran.jpg');"></div>
+                <div class="card-info">
+                    <h3>Монтаж и ремонт ГПО</h3>
+                    <p>Полный комплекс услуг: монтаж, шеф-монтаж, демонтаж, модернизация и ремонт грузоподъемного
+                        оборудования с гарантией.</p>
+                    <a href="works.html#montage" class="card-btn">Наши работы</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleMenu(burger) {
+            burger.classList.toggle('active');
+            document.getElementById('navContainer').classList.toggle('active');
+
+            if (document.getElementById('navContainer').classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+    </script>
+
+</body>
+
+</html>

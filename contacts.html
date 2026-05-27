@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контакты — Пром-Тех</title>
+    <style>
+        html {
+            scrollbar-gutter: stable;
+        }
+
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1a;
+            font-family: Arial, sans-serif;
+            color: #fff;
+        }
+
+        /* ШАПКА */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 60px;
+            background: rgba(0, 0, 0, 0.9);
+            border-bottom: 3px solid #cc0000;
+            z-index: 1000;
+            position: fixed;
+            width: 100%;
+            box-sizing: border-box;
+            top: 0;
+            left: 0;
+        }
+
+        .logo-static {
+            font-size: 26px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Arial Black', sans-serif;
+            line-height: normal;
+            cursor: default;
+            user-select: none;
+            pointer-events: none;
+        }
+
+        .logo-static .part-red {
+            color: #cc0000;
+        }
+
+        .logo-static .part-white {
+            color: #ffffff;
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 35px;
+            font-size: 13px;
+            text-transform: uppercase;
+            font-family: Arial, sans-serif;
+            letter-spacing: 1.5px;
+            font-weight: bold;
+            transition: 0.3s;
+            line-height: normal;
+        }
+
+        nav a:hover {
+            color: #cc0000;
+        }
+
+        /* КОНТЕНТ */
+        .contacts-container {
+            padding: 180px 60px 80px;
+            max-width: 1000px;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            font-size: 56px;
+            text-transform: uppercase;
+            font-family: 'Arial Black', sans-serif;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+        }
+
+        h1::before {
+            content: "";
+            display: inline-block;
+            width: 8px;
+            height: 60px;
+            background-color: #cc0000;
+            margin-right: 25px;
+        }
+
+        /* ЛИНЕЙНЫЙ СПИСОК */
+        .info-row {
+            border-bottom: 1px solid #333;
+            padding: 35px 0;
+            position: relative;
+        }
+
+        .info-row:first-of-type {
+            padding-top: 10px;
+        }
+
+        .label {
+            color: #777;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        .value {
+            font-size: 28px;
+            font-weight: bold;
+            color: #fff;
+            cursor: pointer;
+            transition: 0.2s;
+            line-height: 1.3;
+        }
+
+        .value:hover {
+            color: #cc0000;
+        }
+
+        .copy-hint {
+            position: absolute;
+            right: 0;
+            top: 35px;
+            color: #cc0000;
+            font-size: 12px;
+            text-transform: uppercase;
+            opacity: 0;
+            transition: 0.3s;
+            font-weight: bold;
+        }
+
+        .details-row {
+            border-bottom: none;
+            padding-top: 30px;
+        }
+
+        /* АДАПТИВНЫЕ МЕДИА-ЗАПРОСЫ */
+        @media (max-width: 992px) {
+            header {
+                padding: 15px 25px;
+            }
+
+            .logo-static {
+                font-size: 22px;
+            }
+
+            .nav-container {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
+                background: rgba(0, 0, 0, 0.95);
+                border-left: 3px solid #cc0000;
+                box-sizing: border-box;
+                transition: 0.4s ease;
+                z-index: 999;
+                padding-top: 100px;
+                align-items: flex-start;
+            }
+
+            .nav-container.active {
+                right: 0;
+            }
+
+            nav {
+                flex-direction: column;
+                align-items: flex-start;
+                width: 100%;
+            }
+
+            nav a {
+                margin: 0;
+                padding: 20px 30px;
+                font-size: 16px;
+                display: block;
+                width: 100%;
+                box-sizing: border-box;
+                border-bottom: 1px solid #222;
+            }
+
+            .burger-menu {
+                display: block !important;
+                cursor: pointer;
+                z-index: 1000;
+            }
+
+            .burger-line {
+                width: 30px;
+                height: 3px;
+                background-color: #fff;
+                margin: 6px 0;
+                transition: 0.3s;
+            }
+
+            .burger-menu.active .line1 {
+                transform: rotate(-45deg) translate(-6px, 6px);
+            }
+
+            .burger-menu.active .line2 {
+                opacity: 0;
+            }
+
+            .burger-menu.active .line3 {
+                transform: rotate(45deg) translate(-6px, -6px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .contacts-container {
+                padding: 120px 20px 50px;
+            }
+
+            h1 {
+                font-size: 36px;
+                margin-bottom: 25px;
+            }
+
+            h1::before {
+                height: 40px;
+                margin-right: 15px;
+                width: 6px;
+            }
+
+            .info-row {
+                padding: 20px 0;
+            }
+
+            .value {
+                font-size: 20px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            header {
+                padding: 15px 20px;
+            }
+
+            .logo-static {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo-static">
+            <span class="part-red">Пром</span><span class="part-white">Тех</span>
+        </div>
+        <div class="nav-container" id="navContainer">
+            <nav>
+                <a href="index.html">Главная</a>
+                <a href="catalog.html">Каталог</a>
+                <a href="about.html">О компании</a>
+                <a href="doc.html">Документы</a>
+                <a href="works.html">Наши работы</a>
+                <a href="contacts.html" style="color: #cc0000;">Контакты</a>
+            </nav>
+        </div>
+        <div class="burger-menu" style="display: none;" onclick="toggleMenu(this)">
+            <div class="burger-line line1"></div>
+            <div class="burger-line line2"></div>
+            <div class="burger-line line3"></div>
+        </div>
+    </header>
+
+    <div class="contacts-container">
+        <h1>Контакты</h1>
+
+        <div class="info-row">
+            <span class="label">Телефон (нажмите, чтобы скопировать)</span>
+            <div class="value" onclick="copyText(this)">8-953-687-87-24</div>
+            <span class="copy-hint">Скопировано</span>
+        </div>
+
+        <div class="info-row">
+            <span class="label">Электронная почта (нажмите, чтобы скопировать)</span>
+            <div class="value" onclick="copyText(this)">info@promtech.ru</div>
+            <span class="copy-hint">Скопировано</span>
+        </div>
+
+        <div class="info-row">
+            <span class="label">Адрес (нажмите, чтобы скопировать)</span>
+            <div class="value" onclick="copyText(this)">115191 г. Москва, пер. Духовской, д. 17, стр. 15, помещ. 11 Н/2
+            </div>
+            <span class="copy-hint">Скопировано</span>
+        </div>
+
+        <div class="info-row">
+            <span class="label">Режим работы</span>
+            <div class="value" style="cursor: default;">Пн — Пт: 08:00 – 17:00</div>
+        </div>
+
+        <div class="info-row details-row">
+            <span class="label">Реквизиты компании</span>
+            <div class="value" style="font-size: 20px; color: #888; cursor: default;">ООО «Пром-Тех» | ИНН 4345529096
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleMenu(burger) {
+            burger.classList.toggle('active');
+            document.getElementById('navContainer').classList.toggle('active');
+
+            if (document.getElementById('navContainer').classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+
+        function copyText(element) {
+            const textToCopy = element.innerText;
+            const hint = element.parentElement.querySelector('.copy-hint');
+
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                hint.style.opacity = '1';
+                setTimeout(() => {
+                    hint.style.opacity = '0';
+                }, 1500);
+            });
+        }
+    </script>
+
+</body>
+
+</html>

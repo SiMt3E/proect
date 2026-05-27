@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Наши работы — Пром-Тех</title>
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1a;
+            font-family: Arial, sans-serif;
+            color: #fff;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        /* ШАПКА */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 60px;
+            background: rgba(0, 0, 0, 0.9);
+            border-bottom: 3px solid #cc0000;
+            z-index: 1000;
+            position: fixed;
+            width: 100%;
+            box-sizing: border-box;
+            top: 0;
+            left: 0;
+        }
+
+        .logo-static {
+            font-size: 26px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Arial Black', sans-serif;
+            line-height: normal;
+            cursor: default;
+            user-select: none;
+        }
+
+        .logo-static .part-red {
+            color: #cc0000;
+        }
+
+        .logo-static .part-white {
+            color: #ffffff;
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 35px;
+            font-size: 13px;
+            text-transform: uppercase;
+            font-family: Arial, sans-serif;
+            letter-spacing: 1.5px;
+            font-weight: bold;
+            transition: 0.3s;
+            line-height: normal;
+        }
+
+        nav a:hover {
+            color: #cc0000;
+        }
+
+        /* КОНТЕНТ */
+        .main-container {
+            padding-top: 180px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-left: 60px;
+            padding-right: 60px;
+            padding-bottom: 100px;
+            box-sizing: border-box;
+        }
+
+        .category-title {
+            font-family: 'Arial Black', sans-serif;
+            font-size: 42px;
+            margin-bottom: 40px;
+            scroll-margin-top: 160px;
+        }
+
+        /* ФИЛЬТРЫ-ПЛИТКА */
+        .filters-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 50px;
+        }
+
+        .filter-btn {
+            background: #111;
+            border: 1px solid #444;
+            color: #fff;
+            padding: 10px 25px;
+            font-size: 13px;
+            text-transform: uppercase;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .filter-btn:hover {
+            border-color: #888;
+        }
+
+        .filter-btn.active {
+            background: #fff;
+            color: #000;
+            border-color: #fff;
+        }
+
+        /* СЕТКА ПРОЕКТОВ */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+        }
+
+        .project-card {
+            background: #1a1a1a;
+            display: flex;
+            flex-direction: column;
+            transition: 0.3s;
+        }
+
+        .project-card.hidden {
+            display: none;
+        }
+
+        .project-image {
+            width: 100%;
+            height: 400px;
+            background-size: cover;
+            background-position: center;
+            background-color: #2a2a2a;
+        }
+
+        .project-info {
+            background: #222;
+            padding: 25px 35px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .info-left h3 {
+            margin: 0;
+            font-size: 18px;
+            text-transform: uppercase;
+            font-family: 'Arial Black', sans-serif;
+        }
+
+        .info-left p {
+            margin: 5px 0 0 0;
+            color: #888;
+            font-size: 14px;
+        }
+
+        .info-right {
+            text-align: right;
+        }
+
+        .stats-value {
+            display: block;
+            color: #cc0000;
+            font-size: 32px;
+            font-family: 'Arial Black', sans-serif;
+            line-height: 1;
+        }
+
+        .stats-label {
+            display: block;
+            color: #666;
+            font-size: 11px;
+            text-transform: lowercase;
+            margin-top: 5px;
+        }
+
+        /* АДАПТИВНЫЕ МЕДИА-ЗАПРОСЫ */
+        @media (max-width: 992px) {
+            header {
+                padding: 15px 25px;
+            }
+
+            .logo-static {
+                font-size: 22px;
+            }
+
+            .nav-container {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
+                background: rgba(0, 0, 0, 0.95);
+                border-left: 3px solid #cc0000;
+                box-sizing: border-box;
+                transition: 0.4s ease;
+                z-index: 999;
+                padding-top: 100px;
+                align-items: flex-start;
+            }
+
+            .nav-container.active {
+                right: 0;
+            }
+
+            nav {
+                flex-direction: column;
+                align-items: flex-start;
+                width: 100%;
+            }
+
+            nav a {
+                margin: 0;
+                padding: 20px 30px;
+                font-size: 16px;
+                display: block;
+                width: 100%;
+                box-sizing: border-box;
+                border-bottom: 1px solid #222;
+            }
+
+            .burger-menu {
+                display: block !important;
+                cursor: pointer;
+                z-index: 1000;
+            }
+
+            .burger-line {
+                width: 30px;
+                height: 3px;
+                background-color: #fff;
+                margin: 6px 0;
+                transition: 0.3s;
+            }
+
+            .burger-menu.active .line1 {
+                transform: rotate(-45deg) translate(-6px, 6px);
+            }
+
+            .burger-menu.active .line2 {
+                opacity: 0;
+            }
+
+            .burger-menu.active .line3 {
+                transform: rotate(45deg) translate(-6px, -6px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 120px 20px 50px;
+            }
+
+            .category-title {
+                font-size: 32px;
+                margin-bottom: 25px;
+            }
+
+            .filters-row {
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                padding-bottom: 10px;
+                margin-bottom: 30px;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .filter-btn {
+                flex-shrink: 0;
+                padding: 8px 18px;
+                font-size: 12px;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+
+            .project-image {
+                height: 250px;
+            }
+
+            .project-info {
+                padding: 15px 20px;
+            }
+
+            .stats-value {
+                font-size: 24px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            header {
+                padding: 15px 20px;
+            }
+
+            .logo-static {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo-static">
+            <span class="part-red">Пром</span><span class="part-white">Тех</span>
+        </div>
+        <div class="nav-container" id="navContainer">
+            <nav>
+                <a href="index.html">Главная</a>
+                <a href="catalog.html">Каталог</a>
+                <a href="about.html">О компании</a>
+                <a href="doc.html">Документы</a>
+                <a href="works.html" style="color: #cc0000;">Наши работы</a>
+                <a href="contacts.html">Контакты</a>
+            </nav>
+        </div>
+        <div class="burger-menu" style="display: none;" onclick="toggleMenu(this)">
+            <div class="burger-line line1"></div>
+            <div class="burger-line line2"></div>
+            <div class="burger-line line3"></div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <h1 class="category-title" id="main-title">Все работы</h1>
+
+        <div class="filters-row">
+            <button id="btn-all" class="filter-btn active" onclick="updateFilter(this, 'Все работы')">Все
+                работы</button>
+            <button id="btn-most" class="filter-btn" onclick="updateFilter(this, 'Мостовые краны')">Мостовые
+                краны</button>
+            <button id="btn-kozlov" class="filter-btn" onclick="updateFilter(this, 'Козловые краны')">Козловые
+                краны</button>
+            <button id="btn-konsol" class="filter-btn" onclick="updateFilter(this, 'Консольные краны')">Консольные
+                краны</button>
+            <button id="btn-telega" class="filter-btn" onclick="updateFilter(this, 'Передаточные телеги')">Передаточные
+                телеги</button>
+            <button id="btn-montage" class="filter-btn" onclick="updateFilter(this, 'Монтаж и ремонт')">Монтаж и
+                ремонт</button>
+        </div>
+
+        <div class="projects-grid" id="projects-container">
+
+            <div class="project-card" data-cat="Мостовые краны">
+                <div class="project-image" style="background-image: url('images/kran-most.jpg');"></div>
+                <div class="project-info">
+                    <div class="info-left">
+                        <h3>Кран мостовой опорный</h3>
+                        <p>Двухбалочный тип</p>
+                    </div>
+                    <div class="info-right">
+                        <span class="stats-value">20,0</span>
+                        <span class="stats-label">Грузоподъемность, тн.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card" data-cat="Консольные краны">
+                <div class="project-image" style="background-image: url('images/kran-konsol.jpg');"></div>
+                <div class="project-info">
+                    <div class="info-left">
+                        <h3>Консольный кран на колонне</h3>
+                        <p>Поворотные механизмы</p>
+                    </div>
+                    <div class="info-right">
+                        <span class="stats-value">5,0</span>
+                        <span class="stats-label">Грузоподъемность, тн.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card" data-cat="Козловые краны">
+                <div class="project-image" style="background-image: url('images/kran-kozl.jpg');"></div>
+                <div class="project-info">
+                    <div class="info-left">
+                        <h3>Козловой кран КК-20</h3>
+                        <p>Строительная площадка</p>
+                    </div>
+                    <div class="info-right">
+                        <span class="stats-value">20,0</span>
+                        <span class="stats-label">Грузоподъемность, тн.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card" data-cat="Передаточные телеги">
+                <div class="project-image" style="background-image: url('images/telega.jpg');"></div>
+                <div class="project-info">
+                    <div class="info-left">
+                        <h3>Рельсовая передаточная телега</h3>
+                        <p>Транспортировка между цехами</p>
+                    </div>
+                    <div class="info-right">
+                        <span class="stats-value">15,0</span>
+                        <span class="stats-label">Грузоподъемность, тн.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card" data-cat="Монтаж и ремонт">
+                <div class="project-image" style="background-image: url('images/montazh_kran.jpg');"></div>
+                <div class="project-info">
+                    <div class="info-left">
+                        <h3>Монтаж башенного крана</h3>
+                        <p>Выездные ремонтные работы</p>
+                    </div>
+                    <div class="info-right">
+                        <span class="stats-value">Пр-во</span>
+                        <span class="stats-label">Тип работ</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function toggleMenu(burger) {
+            burger.classList.toggle('active');
+            document.getElementById('navContainer').classList.toggle('active');
+
+            if (document.getElementById('navContainer').classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+
+        function updateFilter(btn, category) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            document.getElementById('main-title').innerText = category;
+
+            const cards = document.querySelectorAll('.project-card');
+            cards.forEach(card => {
+                if (category === 'Все работы' || card.getAttribute('data-cat') === category) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const hash = window.location.hash;
+
+            if (hash) {
+                let targetBtn = null;
+                let catName = "";
+
+                if (hash === '#most') { targetBtn = document.getElementById('btn-most'); catName = 'Мостовые краны'; }
+                else if (hash === '#kozlov') { targetBtn = document.getElementById('btn-kozlov'); catName = 'Козловые краны'; }
+                else if (hash === '#konsol') { targetBtn = document.getElementById('btn-konsol'); catName = 'Консольные краны'; }
+                else if (hash === '#telega') { targetBtn = document.getElementById('btn-telega'); catName = 'Передаточные телеги'; }
+                else if (hash === '#montage') { targetBtn = document.getElementById('btn-montage'); catName = 'Монтаж и ремонт'; }
+
+                if (targetBtn) {
+                    updateFilter(targetBtn, catName);
+                    setTimeout(() => {
+                        document.getElementById('main-title').scrollIntoView({ behavior: 'smooth' });
+                    }, 200);
+                    return;
+                }
+            }
+
+            const defaultBtn = document.getElementById('btn-all');
+            if (defaultBtn) {
+                updateFilter(defaultBtn, 'Все работы');
+            }
+        });
+    </script>
+
+</body>
+
+</html>

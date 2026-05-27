@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Документы — Пром-Тех</title>
+    <style>
+        html {
+            scrollbar-gutter: stable;
+        }
+
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1a;
+            font-family: Arial, sans-serif;
+            color: #fff;
+        }
+
+        /* ШАПКА */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 60px;
+            background: rgba(0, 0, 0, 0.9);
+            border-bottom: 3px solid #cc0000;
+            z-index: 1000;
+            position: fixed;
+            width: 100%;
+            box-sizing: border-box;
+            top: 0;
+            left: 0;
+        }
+
+        .logo-static {
+            font-size: 26px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Arial Black', sans-serif;
+            line-height: normal;
+            cursor: default;
+            user-select: none;
+            pointer-events: none;
+        }
+
+        .logo-static .part-red {
+            color: #cc0000;
+        }
+
+        .logo-static .part-white {
+            color: #ffffff;
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 35px;
+            font-size: 13px;
+            text-transform: uppercase;
+            font-family: Arial, sans-serif;
+            letter-spacing: 1.5px;
+            font-weight: bold;
+            transition: 0.3s;
+            line-height: normal;
+        }
+
+        nav a:hover {
+            color: #cc0000;
+        }
+
+        /* КОНТЕНТ */
+        .docs-section {
+            padding-top: 180px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-bottom: 80px;
+            padding-left: 40px;
+            padding-right: 40px;
+            box-sizing: border-box;
+        }
+
+        .page-title {
+            font-family: 'Arial Black', sans-serif;
+            font-size: 48px;
+            text-transform: uppercase;
+            margin-bottom: 50px;
+            border-left: 8px solid #cc0000;
+            padding-left: 25px;
+        }
+
+        .docs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .doc-card {
+            background: #252525;
+            padding: 30px;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #fff;
+            border-left: 4px solid transparent;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .doc-card:hover {
+            background: #333;
+            border-left: 4px solid #cc0000;
+            transform: translateX(10px);
+        }
+
+        .file-type {
+            width: 50px;
+            height: 50px;
+            background: #cc0000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 12px;
+            margin-right: 20px;
+            flex-shrink: 0;
+            text-transform: uppercase;
+        }
+
+        .doc-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .doc-name {
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            line-height: 1.3;
+        }
+
+        .doc-hint {
+            font-size: 11px;
+            color: #888;
+            margin-top: 5px;
+        }
+
+        /* МОДАЛЬНОЕ ОКНО */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            width: 85%;
+            height: 85%;
+            max-width: 1200px;
+            background: #fff;
+            position: relative;
+            box-shadow: 0 0 30px rgba(204, 0, 0, 0.2);
+        }
+
+        .modal-content iframe {
+            width: 100%;
+            height: 100%;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #fff;
+            font-size: 60px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            user-select: none;
+            line-height: 1;
+        }
+
+        .close-modal:hover {
+            color: #cc0000;
+        }
+
+        body.modal-open {
+            overflow: hidden;
+        }
+
+        /* АДАПТИВНЫЕ МЕДИА-ЗАПРОСЫ */
+        @media (max-width: 992px) {
+            header {
+                padding: 15px 25px;
+            }
+
+            .logo-static {
+                font-size: 22px;
+            }
+
+            .nav-container {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
+                background: rgba(0, 0, 0, 0.95);
+                border-left: 3px solid #cc0000;
+                box-sizing: border-box;
+                transition: 0.4s ease;
+                z-index: 999;
+                padding-top: 100px;
+                align-items: flex-start;
+            }
+
+            .nav-container.active {
+                right: 0;
+            }
+
+            nav {
+                flex-direction: column;
+                align-items: flex-start;
+                width: 100%;
+            }
+
+            nav a {
+                margin: 0;
+                padding: 20px 30px;
+                font-size: 16px;
+                display: block;
+                width: 100%;
+                box-sizing: border-box;
+                border-bottom: 1px solid #222;
+            }
+
+            .burger-menu {
+                display: block !important;
+                cursor: pointer;
+                z-index: 1000;
+            }
+
+            .burger-line {
+                width: 30px;
+                height: 3px;
+                background-color: #fff;
+                margin: 6px 0;
+                transition: 0.3s;
+            }
+
+            .burger-menu.active .line1 {
+                transform: rotate(-45deg) translate(-6px, 6px);
+            }
+
+            .burger-menu.active .line2 {
+                opacity: 0;
+            }
+
+            .burger-menu.active .line3 {
+                transform: rotate(45deg) translate(-6px, -6px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .docs-section {
+                padding: 120px 20px 50px;
+            }
+
+            .page-title {
+                font-size: 32px;
+                margin-bottom: 25px;
+            }
+
+            .docs-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            header {
+                padding: 15px 20px;
+            }
+
+            .logo-static {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo-static">
+            <span class="part-red">Пром</span><span class="part-white">Тех</span>
+        </div>
+        <div class="nav-container" id="navContainer">
+            <nav>
+                <a href="index.html">Главная</a>
+                <a href="catalog.html">Каталог</a>
+                <a href="about.html">О компании</a>
+                <a href="doc.html" style="color: #cc0000;">Документы</a>
+                <a href="works.html">Наши работы</a>
+                <a href="contacts.html">Контакты</a>
+            </nav>
+        </div>
+        <div class="burger-menu" style="display: none;" onclick="toggleMenu(this)">
+            <div class="burger-line line1"></div>
+            <div class="burger-line line2"></div>
+            <div class="burger-line line3"></div>
+        </div>
+    </header>
+
+    <div class="docs-section">
+        <h1 class="page-title">Документы</h1>
+
+        <div class="docs-grid">
+            <div class="doc-card open-doc" data-src="docs/svidetelstvo-lab.pdf">
+                <div class="file-type">pdf</div>
+                <div class="doc-info">
+                    <span class="doc-name">Свидетельство лаборатория НК</span>
+                    <span class="doc-hint">нажмите для просмотра</span>
+                </div>
+            </div>
+
+            <div class="doc-card open-doc" data-src="docs/cpo-vipiska.pdf">
+                <div class="file-type">pdf</div>
+                <div class="doc-info">
+                    <span class="doc-name">СРО выписка</span>
+                    <span class="doc-hint">нажмите для просмотра</span>
+                </div>
+            </div>
+
+            <div class="doc-card open-doc" data-src="docs/sertifikat-TP.pdf">
+                <div class="file-type">pdf</div>
+                <div class="doc-info">
+                    <span class="doc-name">Сертификат ТР ТС мостовые до 100 тонн</span>
+                    <span class="doc-hint">нажмите для просмотра</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="pdfModal">
+        <span class="close-modal">&times;</span>
+        <div class="modal-content">
+            <iframe src="" id="modalIframe" frameborder="0"></iframe>
+        </div>
+    </div>
+
+    <script>
+        function toggleMenu(burger) {
+            burger.classList.toggle('active');
+            document.getElementById('navContainer').classList.toggle('active');
+
+            if (document.getElementById('navContainer').classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const modal = document.getElementById('pdfModal');
+            const modalIframe = document.getElementById('modalIframe');
+            const closeBtn = document.querySelector('.close-modal');
+            const docLinks = document.querySelectorAll('.open-doc');
+
+            docLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const docUrl = link.getAttribute('data-src');
+
+                    modalIframe.src = docUrl;
+                    modal.style.display = 'flex';
+                    document.body.classList.add('modal-open');
+                });
+            });
+
+            closeBtn.addEventListener('click', closeModal);
+
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+
+            function closeModal() {
+                modal.style.display = 'none';
+                modalIframe.src = '';
+                document.body.classList.remove('modal-open');
+            }
+        });
+    </script>
+
+</body>
+
+</html>
